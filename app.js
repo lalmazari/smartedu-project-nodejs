@@ -4,6 +4,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
+require('dotenv').config();
 
 const pageRoute = require('./routes/pageRoute');
 const courseRoute = require('./routes/courseRoute');
@@ -15,7 +16,7 @@ const app = express();
 //Connect Database
 mongoose
   .connect(
-    'mongodb+srv://lal:mongodbLal@cluster0.nwehtvd.mongodb.net/?retryWrites=true&w=majority',
+    `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.rtnn27q.mongodb.net/smartedu?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -68,7 +69,7 @@ app.use('/courses', courseRoute);
 app.use('/categories', categoryRoute);
 app.use('/users', userRoute);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5500;
 app.listen(port, () => {
   console.log(`App started on port ${port}`);
 });
